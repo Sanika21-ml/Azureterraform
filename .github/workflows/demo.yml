@@ -1,40 +1,46 @@
-name:  Azure Resource Group
+name: Deploy to Azure App Service
 
 on:
   push:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
-  terraform:
+  deploy:
     runs-on: ubuntu-latest
 
-    env:
-      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          auth-type: SERVICE PRINCIPAL
-          
-        
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
+    - name: Login to Azure using OIDC
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Deploy to Azure App Service
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: my-app-service-name
+        slot-name: production
+        package: .
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
           terraform_version: 4.1.0
 
-      - name: Terraform Init
-        run: terraform init
+    - name: Terraform Init
+      run: terraform init
 
-      - name: Terraform Plan
-        run: terraform plan
+    - name: Terraform Plan
+      run: terraform plan
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
