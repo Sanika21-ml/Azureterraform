@@ -1,0 +1,37 @@
+name:  Azure Resource Group
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: 
+            -${{ secrets.AZURE_CLIENT_ID }}
+            -${{ secrets.AZURE_CLIENT_SECRET }}
+            -${{ secrets.AZURE_SUBSCRIPTION_ID }}
+            -${{ secrets.AZURE_TENENT_ID }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 4.1.0
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
