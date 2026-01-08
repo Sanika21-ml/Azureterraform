@@ -21,6 +21,6 @@ resource "azurerm_storage_account" "storage" {
     resource_group_name = "Git-rg"
     location = "centralindia"
     account_tier = "Standard"
-    account_replication_type = "RA-GRS"
+    account_replication_type = "RAGRS"
   
 }
