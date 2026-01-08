@@ -34,7 +34,7 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
-      working-directory: environment
+      working-directory: ./environment
 
     - name: Terraform Import RG
       run: |
