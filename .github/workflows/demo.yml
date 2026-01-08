@@ -36,6 +36,12 @@ jobs:
       run: terraform init
       working-directory: environment
 
+    - name: Terraform Import RG
+      run: |
+        terraform import azurerm_resource_group.rg\ 
+        /subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/Git-rg
+
+
     - name: Terraform Plan
       run: terraform plan
       working-directory: environment
