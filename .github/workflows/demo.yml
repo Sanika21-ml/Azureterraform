@@ -1,6 +1,5 @@
 #This is yaml file
-
-name: Deploy to Azure App Service
+name: Deploy Terraform to Azure
 
 on:
   push:
@@ -16,9 +15,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    # Checkout repo
     - name: Checkout code
       uses: actions/checkout@v4
 
+
+    # Azure login using OIDC (Service Principal)
     - name: Login to Azure using OIDC
       uses: azure/login@v2
       with:
@@ -27,25 +30,54 @@ jobs:
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
 
+    # Setup Terraform
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
-          terraform_version: 1.5.7
+        terraform_version: 1.5.7
 
+
+    # Terraform Init
     - name: Terraform Init
       run: terraform init
       working-directory: ./environment
+      env:
+        ARM_USE_OIDC: true
+        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+
+    # Import existing Resource Group
     - name: Terraform Import RG
       run: |
         terraform import azurerm_resource_group.rg \
         /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/Git-rg
+      working-directory: ./environment
+      env:
+        ARM_USE_OIDC: true
+        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
 
+    # Terraform Plan
     - name: Terraform Plan
       run: terraform plan
-      working-directory: environment
+      working-directory: ./environment
+      env:
+        ARM_USE_OIDC: true
+        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+
+    # Terraform Apply
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      working-directory: environment 
+      working-directory: ./environment
+      env:
+        ARM_USE_OIDC: true
+        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
