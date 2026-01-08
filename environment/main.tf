@@ -24,6 +24,7 @@ module "virtualmachine" {
     vm_size = var.vm_size
     admin_username = var.admin_username
     admin_password = var.admin_password
+    subnet_id = module.vnet.subnet_id
 
     depends_on = [ module.vnet ]
   

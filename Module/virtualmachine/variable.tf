@@ -32,3 +32,8 @@ variable "vm_size" {
     default = "Standard_B2ats_v2"
   
 }
+
+variable "subnet_id" {
+    type = string
+  
+}
