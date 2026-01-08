@@ -10,6 +10,7 @@ terraform {
     resource_group_name  = "Git-rg"
     storage_account_name = "backendstatefilegit"
     container_name       = "stategit" 
+    key = "terraform.tfstate"
   }
 }
 
