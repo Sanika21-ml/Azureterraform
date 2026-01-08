@@ -16,6 +16,19 @@ module "vnet" {
   
 }
 
+module "virtualmachine" {
+    source = "../Module/virtualmachine"
+    rg = var.rg
+    location = var.location
+    vmname = var.vmname
+    vm_size = var.vm_size
+    admin_username = var.admin_username
+    admin_password = var.admin_password
+
+    depends_on = [ module.vnet ]
+  
+}
+
 resource "azurerm_storage_account" "storage" {
     name = "backendstatefilegit"
     resource_group_name = "Git-rg"
