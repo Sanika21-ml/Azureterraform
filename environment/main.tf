@@ -1,15 +1,17 @@
-resource "azurerm_resource_group" "rg" {
-    name = var.rg
-    location = var.location  
+module "resourcegroup" {
+    source = "../Module/resourcegroup"
+    rg = var.rg
+    location = var.location
+  
 }
 
+module "Storage-account" {
+    source = "../Module/Storage-account"
+    rg = var.rg
+    location = var.location
+    storage = var.storage
 
-resource "azurerm_storage_account" "storage" {
-    name = "backendstatefilegit"
-    resource_group_name = "RG-Gitdemo"
-    location = "centralindia"
-    account_tier = "Standard"
-    account_replication_type = "LRS"
+    depends_on = [ module.resourcegroup ]
   
 }
 
@@ -22,7 +24,7 @@ module "vnet" {
     subnetname = var.subnetname
     address_prefixes = var.address_prefixes
 
-    depends_on = [ azurerm_resource_group.rg ]
+    depends_on = [ module.resourcegroup ]
   
 }
 
@@ -37,6 +39,14 @@ module "virtualmachine" {
     subnet_id = module.vnet.subnet_id
 
     depends_on = [ module.vnet ]
+  
+}
+
+module "appservice" {
+    source = "../Module/appservice"
+    rg = var.rg
+    location = var.location
+    plan = var.plan 
   
 }
 

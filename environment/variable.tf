@@ -1,6 +1,6 @@
 variable "rg" {
     description = "resource group name"
-    default = "Git-rg"
+    default = "RG-Gitdemo"
   
 }
 
@@ -55,4 +55,15 @@ variable "vm_size" {
     description = "size of vm"
     default = "Standard_B2ats_v2"
   
+}
+
+variable "storage" {
+    description = "storage account name"
+    default = "backendstatefilegit"
+  
+}
+
+variable "plan" {
+    description = "app service plan "
+    default = "app-plan-demo"
 }
