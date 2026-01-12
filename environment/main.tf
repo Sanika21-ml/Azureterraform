@@ -47,6 +47,8 @@ module "appservice" {
     rg = var.rg
     location = var.location
     plan = var.plan 
+
+    depends_on = [ module.resourcegroup ]
   
 }
 
