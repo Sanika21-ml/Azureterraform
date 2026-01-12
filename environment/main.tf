@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "rg" {
 
 resource "azurerm_storage_account" "storage" {
     name = "backendstatefilegit"
-    resource_group_name = "Git-rg"
+    resource_group_name = "RG-Gitdemo"
     location = "centralindia"
     account_tier = "Standard"
     account_replication_type = "LRS"
