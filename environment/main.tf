@@ -3,6 +3,16 @@ resource "azurerm_resource_group" "rg" {
     location = var.location  
 }
 
+
+resource "azurerm_storage_account" "storage" {
+    name = "backendstatefilegit"
+    resource_group_name = "Git-rg"
+    location = "centralindia"
+    account_tier = "Standard"
+    account_replication_type = "LRS"
+  
+}
+
 module "vnet" {
     source = "../Module/vnet"
     rg = var.rg
@@ -30,11 +40,3 @@ module "virtualmachine" {
   
 }
 
-resource "azurerm_storage_account" "storage" {
-    name = "backendstatefilegit"
-    resource_group_name = "Git-rg"
-    location = "centralindia"
-    account_tier = "Standard"
-    account_replication_type = "RAGRS"
-  
-}
