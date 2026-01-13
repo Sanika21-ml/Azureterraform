@@ -51,9 +51,9 @@ variable "address_prefixes" {
   
 }
 
-variable "vmname" {
+variable "vname" {
     description = "virtual machine name"
-    default = "machine1"
+    default = "machine2"
   
 }
 
@@ -93,5 +93,20 @@ variable "dnsname" {
 
 variable "vnetlink" {
     default = "dnslink"
+  
+}
+
+variable "subnet_id" {
+    type = string
+  
+}
+
+variable "storage_id" {
+    type = string
+  
+}
+
+variable "vnet_id" {
+    type = string
   
 }

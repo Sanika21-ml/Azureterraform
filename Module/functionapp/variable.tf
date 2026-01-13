@@ -45,3 +45,8 @@ variable "planapp" {
     default = "appfunctionplan11"
   
 }
+
+variable "primary_key" {
+    type = string
+  
+}

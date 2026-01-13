@@ -58,6 +58,8 @@ module "functionapp" {
     rg = var.rg
     location = var.location
     planapp = var.planapp
+
+    depends_on = [ module.Storage-account ]
   
 }
 
@@ -67,6 +69,8 @@ module "private-endpoint" {
     location = var.location
     admin_username = var.admin_username
     admin_password = var.admin_password
+
+    depends_on = [ module.virtualmachine , module.vnet , module.Storage-account ]
   
 }
 

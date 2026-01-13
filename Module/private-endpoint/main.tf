@@ -1,44 +1,19 @@
-resource "azurerm_storage_account" "storagename" {
-  name = var.storage
-  resource_group_name = var.rg
-  location = var.location
-  account_tier = var.storage_account_tier
-  account_replication_type = var.storage_replication_type
-}
-
-resource "azurerm_virtual_network" "network" {
-    name = var.vnetname
-    resource_group_name = var.rg
-    location = var.location
-    address_space = var.address_space
-
-    
-  
-}
-
-resource "azurerm_subnet" "subnetname" {
-    name = var.subnetname
-    resource_group_name = var.rg
-    virtual_network_name = azurerm_virtual_network.network.name
-    address_prefixes = var.address_prefixes
-  
-}
 
 resource "azurerm_network_interface" "this" {
-  name = "${var.vmname}-nic"
+  name = "${var.vname}-nic"
   location = var.location
   resource_group_name = var.rg
 
   ip_configuration {
     name = "internal"
-    subnet_id = azurerm_subnet.subnetname.id
+    subnet_id = var.subnet_id
     private_ip_address_allocation = "Dynamic"
   }
 }
 
 
 resource "azurerm_linux_virtual_machine" "this" {
-  name = var.vmname
+  name = var.vname
   resource_group_name = var.rg
   location = var.location
   size = var.vm_size
@@ -71,13 +46,13 @@ resource "azurerm_private_dns_zone" "dnsname" {
 
 resource "azurerm_private_endpoint" "private" {
     name = var.private
-    subnet_id = azurerm_subnet.subnetname.id
+    subnet_id = var.subnet_id
     resource_group_name = var.rg
     location = var.location
 
     private_service_connection  {
       name = var.connect
-      private_connection_resource_id = azurerm_storage_account.storagename.id
+      private_connection_resource_id = var.storage_id
       subresource_names = [ "blob" ]
       is_manual_connection = false
 }
@@ -92,6 +67,6 @@ resource "azurerm_private_dns_zone_virtual_network_link" "link" {
     name = var.vnetlink 
     resource_group_name = var.rg
     private_dns_zone_name = azurerm_private_dns_zone.dnsname.name
-    virtual_network_id = azurerm_virtual_network.network.id
+    virtual_network_id = var.vnet_id
   
 }
