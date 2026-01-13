@@ -76,23 +76,3 @@ variable "planapp" {
     default = "appfunctionplan11"
   
 }
-
-variable "primary_key" {
-    type = string
-  
-}
-
-variable "subnet_id" {
-    type = string
-  
-}
-
-variable "storage_id" {
-    type = string
-  
-}
-
-variable "vnet_id" {
-    type = string
-  
-}

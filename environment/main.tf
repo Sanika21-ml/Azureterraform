@@ -58,7 +58,7 @@ module "functionapp" {
     rg = var.rg
     location = var.location
     planapp = var.planapp
-    primary_key = var.primary_key
+    primary_key = module.Storage-account.primary_key
 
     depends_on = [ module.Storage-account ]
   
@@ -70,9 +70,9 @@ module "private-endpoint" {
     location = var.location
     admin_username = var.admin_username
     admin_password = var.admin_password
-    vnet_id = var.vnet_id
-    subnet_id = var.subnet_id
-    storage_id = var.storage_id
+    vnet_id = module.vnet.vnet_id
+    subnet_id = module.vnet.subnet_id
+    storage_id = module.Storage-account.storage_id
 
     depends_on = [ module.virtualmachine , module.vnet , module.Storage-account ]
   
