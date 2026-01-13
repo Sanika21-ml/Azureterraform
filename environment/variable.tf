@@ -69,7 +69,7 @@ variable "plan" {
 }
 
 variable "appname" {
-    default = "testappdemo"
+    default = "testappdemo112200"
 }
 
 variable "planapp" {
