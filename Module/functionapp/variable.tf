@@ -38,7 +38,7 @@ variable "sku_name" {
 }
 
 variable "appname" {
-    default = "testappdemo"
+    default = "testappdemo112200"
 }
 
 variable "planapp" {
