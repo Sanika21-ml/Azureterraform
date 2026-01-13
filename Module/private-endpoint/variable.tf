@@ -9,6 +9,24 @@ variable "location" {
      default = "centralindia"
 }
 
+variable "storage" {
+    description = "storage account name"
+    default = "backendstatefilegit"
+  
+}
+
+variable "storage_account_tier" {
+  description = "Storage account tier"
+  type        = string
+  default     = "Standard"
+}
+
+variable "storage_replication_type" {
+  description = "Replication type"
+  type        = string
+  default     = "LRS"
+}
+
 variable "address_space" {
     description = "address space for vnet"
     default = ["10.0.0.0/16"]
@@ -57,22 +75,23 @@ variable "vm_size" {
   
 }
 
-variable "storage" {
-    description = "storage account name"
-    default = "backendstatefilegit"
+
+variable "private" {
+    description = "name of private endpoints"
+    default = "storage-endpoint-demo"
+}
+
+variable "connect" {
+    default = "first-private-connection1"
+    description = "private connection name"
+}
+
+variable "dnsname" {
+    default = "demo-dns"
   
 }
 
-variable "plan" {
-    description = "app service plan "
-    default = "app-plan-demo"
-}
-
-variable "appname" {
-    default = "functionapptest"
-}
-
-variable "planapp" {
-    default = "appfunctionplan11"
+variable "vnetlink" {
+    default = "dnslink"
   
 }

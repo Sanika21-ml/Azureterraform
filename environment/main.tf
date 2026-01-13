@@ -52,3 +52,28 @@ module "appservice" {
   
 }
 
+module "functionapp" {
+    source = "../Module/functionapp"
+    appname = var.appname
+    rg = var.rg
+    location = var.location
+    planapp = var.planapp
+  
+}
+
+module "private-endpoint" {
+    source = "../Module/private-endpoint"
+    rg = var.rg
+    location = var.location
+    admin_username = var.admin_username
+    admin_password = var.admin_password
+  
+}
+
+module "key-vault" {
+    source = "../Module/key-vault"
+    rg = var.rg
+    location = var.location
+
+}
+

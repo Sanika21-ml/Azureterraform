@@ -2,7 +2,7 @@ resource "azurerm_storage_account" "storage" {
     name = var.storage
     resource_group_name = var.rg
     location = var.location
-    account_tier = "Standard"
-    account_replication_type = "LRS"
+    account_tier = var.storage_account_tier
+    account_replication_type = var.storage_replication_type
   
 }

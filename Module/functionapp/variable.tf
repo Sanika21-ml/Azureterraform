@@ -26,3 +26,22 @@ variable "storage_replication_type" {
   type        = string
   default     = "LRS"
 }
+
+variable "os_type" {
+    default = "Linux"
+  
+}
+
+variable "sku_name" {
+    default = "Y1"
+  
+}
+
+variable "appname" {
+    default = "functionapptest"
+}
+
+variable "planapp" {
+    default = "appfunctionplan11"
+  
+}
