@@ -38,7 +38,7 @@ variable "sku_name" {
 }
 
 variable "appname" {
-    default = "functionapptest"
+    default = "testappdemo"
 }
 
 variable "planapp" {

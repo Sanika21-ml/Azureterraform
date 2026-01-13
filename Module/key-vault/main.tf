@@ -16,11 +16,3 @@ resource "azurerm_key_vault" "key" {
    }
 }
 
-resource "azurerm_role_assignment" "role" {
-    scope = azurerm_key_vault.key.id
-    principal_id = data.azurerm_client_config.connect.object_id
-    role_definition_name = "Key Vault Secrets Officer"
-
-    depends_on = [ azurerm_key_vault.key ]
-  
-}
