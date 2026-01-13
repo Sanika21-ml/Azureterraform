@@ -50,7 +50,7 @@ jobs:
 
     # Terraform Plan
     - name: Terraform Plan
-      run: terraform plan -lock=false
+      run: terraform plan 
       working-directory: ./environment
       env:
         ARM_USE_OIDC: true
