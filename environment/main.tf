@@ -90,6 +90,8 @@ module "dns" {
     rg = var.rg
     dns_zone = module.private-endpoint.dns_zone
     nic = module.virtualmachine.nic 
+
+    depends_on = [ module.resourcegroup , module.vnet , module.virtualmachine ]
   
 }
 
