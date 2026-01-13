@@ -85,3 +85,11 @@ module "key-vault" {
 
 }
 
+module "dns" {
+    source = "../Module/dns"
+    rg = var.rg
+    dns_zone = module.private-endpoint.dns_zone
+    nic = module.virtualmachine.nic 
+  
+}
+
