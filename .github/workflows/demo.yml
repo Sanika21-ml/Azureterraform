@@ -40,7 +40,7 @@ jobs:
     # Terraform Init
     - name: Terraform Init
       run: terraform init
-      working-directory: ./environment
+      working-directory: ./environment/dev
       env:
         ARM_USE_OIDC: true
         ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -51,7 +51,7 @@ jobs:
     # Terraform Plan
     - name: Terraform Plan
       run: terraform plan 
-      working-directory: ./environment
+      working-directory: ./environment/dev
       env:
         ARM_USE_OIDC: true
         ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -62,7 +62,7 @@ jobs:
     # Terraform Apply
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      working-directory: ./environment
+      working-directory: ./environment/dev
       env:
         ARM_USE_OIDC: true
         ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
